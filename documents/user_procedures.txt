@@ -1,0 +1,5 @@
+Creating a user
+1. Open the Admin menu and select Users.
+2. Click New User.
+3. Fill in name, email and department.
+4. Click Save. The user receives an email to set a password.
