@@ -77,21 +77,25 @@ def answer(question):
         + f"QUESTION:\n{question}\n\n"
         + "Answer using only the CONTEXT above. If it contains the answer, give it."
     )
+    GEN_URL = os.getenv("GEN_URL", f"{OLLAMA_URL}/api/chat")
+    GEN_MODEL = os.getenv("GEN_MODEL", "llama3.2:3b")
+    OLLAMA_API_KEY = os.getenv("OLLAMA_API_KEY", "")
 
+    headers = {"Authorization": f"Bearer {OLLAMA_API_KEY}"} if OLLAMA_API_KEY else {}
     r = requests.post(
-        f"{OLLAMA_URL}/api/chat",
+        GEN_URL,
+        headers=headers,
         json={
             "model": GEN_MODEL,
             "stream": False,
             "options": {"temperature": 0, "num_ctx": 4096},
             "messages": [
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": prompt},
-            ],
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": prompt},
+                ],
         },
         timeout=600,
     )
-    print(f"RAG prompt:\n{prompt}", flush=True)
 
     r.raise_for_status()
     return r.json()["message"]["content"].strip()

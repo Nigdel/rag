@@ -17,7 +17,7 @@ def ask(body: Question):
     if not body.question.strip():
         raise HTTPException(status_code=400, detail="Question is empty.")
     try:
-        return {"answer": rag.answer(body.question)}
+        return {"answer": rag.answer(body.question), "question": body.question}
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"Backend error: {e}")
 
