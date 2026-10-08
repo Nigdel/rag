@@ -60,3 +60,4 @@ If no chunk reaches the threshold, the model is not called.
 docker compose logs --tail=40 api
 docker compose logs --tail=40 ollama
 docker compose up -d --force-recreate api
+docker compose build 
