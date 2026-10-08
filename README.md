@@ -57,6 +57,7 @@ that the documentation does NOT answer, note their top similarity, then set
 `MIN_SIMILARITY` in `.env` slightly above it and run `docker compose up -d`.
 If no chunk reaches the threshold, the model is not called.
 
+## Others Commands
 docker compose logs --tail=40 api
 docker compose logs --tail=40 ollama
 docker compose up -d --force-recreate api
