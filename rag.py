@@ -12,20 +12,20 @@ MIN_SIMILARITY = float(os.getenv("MIN_SIMILARITY", "0"))
 
 NOT_FOUND = "I could not find enough information in the documentation to answer this question."
 
-SYSTEM_PROMPT = f"""You answer questions using ONLY the DOCUMENTATION CONTEXT provided by the user.
+SYSTEM_PROMPT = f"""Answer the user's question using the DOCUMENTATION CONTEXT.
 
-If the CONTEXT contains information that answers the question, answer using that information.
+The context is retrieved from the documentation and may contain the answer.
+When the context contains relevant instructions or facts, answer directly,
+clearly, and step by step if appropriate.
 
-Rules:
-- Answer exclusively using the information contained in the provided CONTEXT.
-- Do not use knowledge acquired during your training.
-- Do not invent information.
-- Do not make assumptions.
-- Do not complete missing information.
-- Do not make inferences that are not explicitly supported by the CONTEXT.
-- Do not mention information that does not explicitly appear in the CONTEXT.
-- If only part of the question can be answered using the CONTEXT, answer only that part and clearly indicate which information is not available in the documentation.
-- Only if the CONTEXT has nothing relevant to the question, answer exactly: "{NOT_FOUND}" """
+Do not add information that is absent from the context.
+
+Return exactly this sentence only when the context contains no information
+related to the question:
+
+{NOT_FOUND}
+"""
+
 
 
 def embed(texts, prefix):
@@ -91,5 +91,7 @@ def answer(question):
         },
         timeout=600,
     )
+    print(f"RAG prompt:\n{prompt}", flush=True)
+
     r.raise_for_status()
     return r.json()["message"]["content"].strip()
