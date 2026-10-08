@@ -13,7 +13,7 @@ docker compose up -d --build
 ## 2. Download the models
 
 ```bash
-docker exec -it ollama ollama pull llama3.2:1b
+docker exec -it ollama ollama pull llama3.2:3b
 docker exec -it ollama ollama pull nomic-embed-text
 ```
 
@@ -56,3 +56,7 @@ retrieved chunks on every question (`docker compose logs api`). Ask a few questi
 that the documentation does NOT answer, note their top similarity, then set
 `MIN_SIMILARITY` in `.env` slightly above it and run `docker compose up -d`.
 If no chunk reaches the threshold, the model is not called.
+
+docker compose logs --tail=40 api
+docker compose logs --tail=40 ollama
+docker compose up -d --force-recreate api
