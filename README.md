@@ -13,7 +13,7 @@ docker compose up -d --build
 ## 2. Download the models
 
 ```bash
-docker exec -it ollama ollama pull llama3.2:3b
+#docker exec -it ollama ollama pull llama3.2:3b
 docker exec -it ollama ollama pull nomic-embed-text
 ```
 
